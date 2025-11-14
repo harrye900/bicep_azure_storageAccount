@@ -1,0 +1,52 @@
+name: Delete Storage Account
+
+on:
+  workflow_dispatch:
+    inputs:
+      storage_accounts:
+        description: 'Storage account names (comma-separated)'
+        required: true
+        type: string
+        default: 'racetrac0003033,racetrac000303335'
+      resource_group:
+        description: 'Resource group name'
+        required: true
+        type: string
+        default: 'test'
+      confirm_deletion:
+        description: 'Type "DELETE" to confirm deletion'
+        required: true
+        type: string
+
+env:
+  AZURE_RESOURCE_GROUP: ${{ github.event.inputs.resource_group }}
+  STORAGE_ACCOUNTS: ${{ github.event.inputs.storage_accounts }}
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    if: github.event.inputs.confirm_deletion == 'DELETE'
+    
+    steps:
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    
+    - name: Delete Storage Accounts
+      run: |
+        IFS=',' read -ra ACCOUNTS <<< "${{ env.STORAGE_ACCOUNTS }}"
+        for account in "${ACCOUNTS[@]}"; do
+          account=$(echo $account | xargs)  # trim whitespace
+          echo "Deleting storage account: $account"
+          az storage account delete \
+            --name "$account" \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --yes
+          echo "✅ Deleted: $account"
+        done
+    
+    - name: Confirm Deletion
+      run: |
+        echo "All specified storage accounts have been deleted from resource group ${{ env.AZURE_RESOURCE_GROUP }}"
+        echo "Deleted accounts: ${{ env.STORAGE_ACCOUNTS }}"
