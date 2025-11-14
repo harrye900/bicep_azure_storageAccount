@@ -15,4 +15,3 @@ param tags = {
   Owner: 'TeamName'
 }
 param enableVersioning = true
-param enableChangeFeed = false

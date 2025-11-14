@@ -53,9 +53,6 @@ param tags object = {}
 @description('Enable blob versioning')
 param enableVersioning bool = false
 
-@description('Enable blob change feed')
-param enableChangeFeed bool = false
-
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: storageAccountName
   location: location
