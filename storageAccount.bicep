@@ -50,8 +50,7 @@ param isHnsEnabled bool = false
 @description('Resource tags')
 param tags object = {}
 
-@description('Enable blob versioning')
-param enableVersioning bool = false
+
 
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
   name: storageAccountName
@@ -67,9 +66,6 @@ resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
     minimumTlsVersion: minimumTlsVersion
     supportsHttpsTrafficOnly: supportsHttpsTrafficOnly
     isHnsEnabled: isHnsEnabled
-    blobRestoreStatus: enableVersioning ? {
-      isEnabled: enableVersioning
-    } : null
   }
 }
 

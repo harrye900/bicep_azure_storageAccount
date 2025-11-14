@@ -1,6 +1,6 @@
 using 'storageAccount.bicep'
 
-param storageAccountName = 'racetrac0003033'
+param storageAccountName = 'racetrac000303335'
 param location = 'East US'
 param sku = 'Standard_LRS'
 param kind = 'StorageV2'
@@ -14,4 +14,3 @@ param tags = {
   Project: 'MyProject'
   Owner: 'TeamName'
 }
-param enableVersioning = true
