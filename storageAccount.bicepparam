@@ -1,8 +1,8 @@
 using 'storageAccount.bicep'
 
-param storageAccountName = 'mystorageacct001'
+param storageAccountName = 'racetrac0003033'
 param location = 'East US'
-param sku = 'Standard_GRS'
+param sku = 'Standard_LRS'
 param kind = 'StorageV2'
 param accessTier = 'Hot'
 param allowBlobPublicAccess = false
