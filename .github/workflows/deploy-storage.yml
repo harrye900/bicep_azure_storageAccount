@@ -3,12 +3,10 @@ name: Deploy Storage Account
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-  workflow_dispatch:
+ 
 
 env:
-  AZURE_RESOURCE_GROUP: rg-storage-demo
+  AZURE_RESOURCE_GROUP: test
   AZURE_LOCATION: eastus
 
 jobs:
